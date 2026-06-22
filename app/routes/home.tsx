@@ -1,8 +1,9 @@
 import type { Route } from "./+types/home";
+import TopTalBadge from "../components/TopTalBadge";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "BeezyNX - Software Development & AI Solutions" },
+    { title: "Beezynx - Software Development & AI Solutions" },
     { name: "description", content: "Leading software development company specializing in AI tools, automation, and enterprise consulting solutions." },
     { name: "keywords", content: "software development, AI tools, automation, consulting, enterprise solutions" },
   ];
@@ -23,7 +24,7 @@ export default function Home() {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">BX</span>
               </div>
-              <span className="text-white text-xl font-semibold">BeezyNX</span>
+              <span className="text-white text-xl font-semibold">Beezynx</span>
             </div>
             <div className="hidden md:flex space-x-8">
               <a href="#services" className="text-white/80 hover:text-white transition-colors">Services</a>
@@ -110,12 +111,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Business Partners Section */}
+      <section id="partners" className="py-20 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Business Partners</h2>
+            <p className="text-xl text-white/70">Trusted by industry leaders</p>
+          </div>
+
+          <div className="flex justify-center items-center gap-12 flex-wrap">
+            <TopTalBadge />
+          </div>
+        </div>
+      </section>
+
       {/* About Section */}
-      <section id="about" className="py-20 px-6 lg:px-8">
+      <section id="about" className="py-20 px-6 lg:px-8 bg-white/5 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Why Choose BeezyNX?</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Why Choose Beezynx?</h2>
               <p className="text-xl text-white/80 mb-8 leading-relaxed">
                 We combine technical expertise with business acumen to deliver solutions that not only work but drive real results.
               </p>
@@ -156,7 +171,7 @@ export default function Home() {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">BX</span>
                 </div>
-                <span className="text-white text-xl font-semibold">BeezyNX</span>
+                <span className="text-white text-xl font-semibold">Beezynx</span>
               </div>
               <p className="text-white/60">Building the future with intelligent software solutions.</p>
             </div>
@@ -189,7 +204,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-white/10 mt-8 pt-8 text-center text-white/60">
-            <p>&copy; 2024 BeezyNX. All rights reserved.</p>
+            <p>&copy; 2024 Beezynx. All rights reserved.</p>
           </div>
         </div>
       </footer>
