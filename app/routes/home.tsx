@@ -1,213 +1,372 @@
 import type { Route } from "./+types/home";
+import { resolveSite } from "../data/site";
+import {
+  coast,
+  services,
+  whyChoose,
+  works,
+  specs,
+  ASCII_COLORS,
+} from "../data/portfolio";
+import { useScrollEffects, useActiveSection } from "../hooks/useScrollEffects";
 import TopTalBadge from "../components/TopTalBadge";
 
-export function meta({}: Route.MetaArgs) {
+const GITHUB_URL = "https://github.com/masayukitanaka";
+
+export function meta({ data }: Route.MetaArgs) {
+  const brand = data?.brand ?? "Beezynx";
   return [
-    { title: "Beezynx - Software Development & AI Solutions" },
-    { name: "description", content: "Leading software development company specializing in AI tools, automation, and enterprise consulting solutions." },
-    { name: "keywords", content: "software development, AI tools, automation, consulting, enterprise solutions" },
+    { title: `${brand} - Software Development & AI Solutions` },
+    {
+      name: "description",
+      content:
+        "Leading software development company specializing in AI tools, automation, and enterprise consulting solutions.",
+    },
+    {
+      name: "keywords",
+      content:
+        "software development, AI tools, automation, consulting, enterprise solutions",
+    },
   ];
 }
 
 export function loader({ context }: Route.LoaderArgs) {
-  return { message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE };
+  const env = context.cloudflare.env as unknown as Record<
+    string,
+    string | undefined
+  >;
+  return resolveSite(env.PUBLIC_SITE);
 }
 
-export default function Home() {
+const TOC = [
+  { id: "overview", label: "— Overview" },
+  { id: "services", label: "01 Services" },
+  { id: "why", label: "02 Why Beezynx" },
+  { id: "works", label: "03 Works" },
+  { id: "partners", label: "04 Partners" },
+  { id: "contact", label: "05 Contact" },
+];
+
+const TOC_IDS = TOC.map((t) => t.id);
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const { brand, mark, domain } = loaderData;
+
+  useScrollEffects();
+  useActiveSection(TOC_IDS);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+    <div className="font-sans text-ink">
       {/* Navigation */}
-      <header className="relative z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
-        <nav className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">BX</span>
-              </div>
-              <span className="text-white text-xl font-semibold">Beezynx</span>
-            </div>
-            <div className="hidden md:flex space-x-8">
-              <a href="#services" className="text-white/80 hover:text-white transition-colors">Services</a>
-              <a href="#about" className="text-white/80 hover:text-white transition-colors">About</a>
-              <a href="#contact" className="text-white/80 hover:text-white transition-colors">Contact</a>
-            </div>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
-              Get Started
-            </button>
-          </div>
-        </nav>
-      </header>
+      <nav className="sticky top-0 z-20 h-[60px] flex items-center justify-between px-5 md:px-10 border-b border-line bg-bg/90 backdrop-blur-[10px]">
+        <a href="#overview" className="flex items-center gap-2.5">
+          <span className="font-mono font-medium text-xs px-[7px] py-1 bg-ink text-white rounded-[3px]">
+            {mark}
+          </span>
+          <span className="font-semibold text-base">{brand}</span>
+        </a>
+        <div className="flex gap-4 md:gap-7 items-center text-sm text-text-muted">
+          <a href="#services" className="hidden sm:inline">
+            Services
+          </a>
+          <a href="#why" className="hidden sm:inline">
+            About
+          </a>
+          <a href="#partners" className="hidden md:inline">
+            Partners
+          </a>
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener"
+            className="hidden md:inline"
+          >
+            GitHub ↗
+          </a>
+          <a
+            href="#contact"
+            className="px-3.5 py-2 border border-border-btn rounded-md text-ink"
+          >
+            Contact
+          </a>
+        </div>
+      </nav>
 
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-32 px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-              Next-Gen
-              <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent block">
-                Software Solutions
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto leading-relaxed">
-              We craft intelligent software, AI-powered tools, and automation solutions that transform businesses and drive innovation.
+      <div className="grid grid-cols-1 lg:grid-cols-[220px_minmax(0,1fr)] gap-0 lg:gap-16 px-5 md:px-10">
+        {/* Sidebar TOC */}
+        <aside className="hidden lg:flex sticky top-[60px] self-start pt-[72px] flex-col gap-3 font-mono text-[13px] text-text-sub">
+          {TOC.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              data-toc={item.id}
+              style={{
+                color:
+                  item.id === "overview"
+                    ? "var(--color-ink)"
+                    : "var(--color-text-sub)",
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
+        </aside>
+
+        {/* Main content */}
+        <main className="max-w-[900px] pb-10 w-full">
+          {/* Hero / Overview */}
+          <header
+            id="overview"
+            data-speed="0.12"
+            className="scroll-mt-[60px] pt-[72px] pb-16 flex flex-col gap-[22px] border-b border-line"
+          >
+            <div className="relative lg:min-h-[400px] flex flex-col-reverse lg:block gap-10">
+              <div className="relative z-10 flex flex-col gap-[22px] max-w-[360px]">
+                <span className="font-mono text-[13px] text-accent">
+                  Software Development & AI
+                </span>
+                <h1 className="m-0 font-medium text-[34px] md:text-5xl leading-[1.15] tracking-[-0.02em]">
+                  Next-Gen software solutions.
+                </h1>
+                <p className="m-0 text-base leading-[1.9] text-text-muted max-w-[640px]">
+                  We craft intelligent software, AI-powered tools, and
+                  automation solutions that transform businesses and drive
+                  innovation.
+                </p>
+              </div>
+
+              {/* ASCII coastline art */}
+              <figure
+                aria-label="ASCII art of a coastline"
+                className="static lg:absolute lg:right-[-24px] lg:top-[-24px] z-0 m-0 flex flex-col gap-2 overflow-x-auto"
+              >
+                <div className="font-mono font-normal leading-[1.15] text-[clamp(9px,2.6vw,14px)] md:text-base lg:text-[23px]">
+                  {coast.map((line, i) => (
+                    <div
+                      key={i}
+                      className="whitespace-pre"
+                      style={{ color: ASCII_COLORS[line.c] }}
+                    >
+                      {line.t}
+                    </div>
+                  ))}
+                </div>
+                <figcaption className="font-mono text-[10px] text-text-label text-right">
+                  ~/coast.txt
+                </figcaption>
+              </figure>
+            </div>
+
+            {/* Spec strip */}
+            <dl className="mt-2 mb-0 grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line rounded-lg overflow-hidden">
+              {specs.map((cell) => (
+                <div key={cell.dt} className="px-4 py-3.5 bg-bg">
+                  <dt className="font-mono text-[11px] text-text-sub">
+                    {cell.dt}
+                  </dt>
+                  <dd className="mt-1.5 ml-0 text-sm">{cell.dd}</dd>
+                </div>
+              ))}
+            </dl>
+          </header>
+
+          {/* 01 Services */}
+          <section id="services" className="scroll-mt-[60px] pt-14 pb-6">
+            <h2 className="m-0 mb-2 font-medium text-2xl">01 Services</h2>
+            <p className="m-0 mb-4 text-[15px] text-text-muted">
+              Comprehensive solutions for modern businesses.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105">
-                Start Your Project
-              </button>
-              <button className="border border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-lg text-lg font-semibold transition-all">
-                View Our Work
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl"></div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-20 px-6 lg:px-8 bg-white/5 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Our Services</h2>
-            <p className="text-xl text-white/70">Comprehensive solutions for modern businesses</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
-              <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-semibold text-white mb-4">Software Development</h3>
-              <p className="text-white/70 leading-relaxed">Custom web applications, mobile apps, and enterprise software built with cutting-edge technologies and best practices.</p>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
-              <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-600 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-semibold text-white mb-4">AI Tools & Automation</h3>
-              <p className="text-white/70 leading-relaxed">Intelligent automation solutions, machine learning integration, and AI-powered tools that streamline operations.</p>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all">
-              <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-600 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-semibold text-white mb-4">Consulting</h3>
-              <p className="text-white/70 leading-relaxed">Strategic technology consulting, architecture design, and digital transformation guidance for enterprises.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Business Partners Section */}
-      <section id="partners" className="py-20 px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Business Partners</h2>
-            <p className="text-xl text-white/70">Trusted by industry leaders</p>
-          </div>
-
-          <div className="flex justify-center items-center gap-12 flex-wrap">
-            <TopTalBadge />
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 px-6 lg:px-8 bg-white/5 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Why Choose Beezynx?</h2>
-              <p className="text-xl text-white/80 mb-8 leading-relaxed">
-                We combine technical expertise with business acumen to deliver solutions that not only work but drive real results.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                  <span className="text-white/90">10+ years of industry experience</span>
+            {services.map((s) => (
+              <article
+                key={s.no}
+                data-reveal="1"
+                className="grid grid-cols-1 md:grid-cols-[72px_minmax(0,1fr)] gap-x-8 gap-y-2 py-8 border-b border-line-soft"
+              >
+                <span className="font-mono text-xs text-text-sub pt-1">
+                  {s.no}
+                </span>
+                <div className="flex flex-col gap-3">
+                  <h3 className="m-0 font-medium text-[21px]">{s.title}</h3>
+                  <p className="m-0 text-sm leading-[1.85] text-text-body max-w-[560px]">
+                    {s.summary}
+                  </p>
+                  <div className="flex gap-1.5 flex-wrap">
+                    {s.tags.map((t) => (
+                      <code
+                        key={t}
+                        className="font-mono text-xs px-1.5 py-0.5 bg-chip rounded-[3px]"
+                      >
+                        {t}
+                      </code>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                  <span className="text-white/90">100+ successful projects delivered</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-white/90">24/7 support and maintenance</span>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-                <h3 className="text-2xl font-semibold mb-4">Ready to get started?</h3>
-                <p className="mb-6">Let's discuss your project and see how we can help transform your business.</p>
-                <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                  Schedule a Consultation
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              </article>
+            ))}
+          </section>
 
-      {/* Footer */}
-      <footer className="bg-black/20 backdrop-blur-sm border-t border-white/10 py-12 px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">BX</span>
+          {/* 02 Why Beezynx */}
+          <section id="why" className="scroll-mt-[60px] py-12">
+            <h2 className="m-0 mb-2 font-medium text-2xl">
+              02 Why {brand}?
+            </h2>
+            <p className="m-0 mb-5 text-[15px] text-text-muted">
+              Solutions that not only work, but drive real results.
+            </p>
+            <DataTable rows={whyChoose} />
+          </section>
+
+          {/* 03 Works */}
+          <section id="works" className="scroll-mt-[60px] pt-14 pb-6">
+            <h2 className="m-0 mb-2 font-medium text-2xl">03 Works</h2>
+            <p className="m-0 mb-4 text-[15px] text-text-muted">
+              Selected projects and platforms we've delivered.
+            </p>
+            {works.map((w) => (
+              <article
+                key={w.no}
+                data-reveal="1"
+                className="grid grid-cols-1 md:grid-cols-[320px_minmax(0,1fr)] gap-8 py-8 border-b border-line-soft"
+              >
+                <a
+                  href={w.url}
+                  target={w.url.startsWith("http") ? "_blank" : undefined}
+                  rel={w.url.startsWith("http") ? "noopener" : undefined}
+                  className="block relative h-[200px] overflow-hidden rounded-md border border-border-thumb"
+                >
+                  <div
+                    data-pspeed="0.1"
+                    className="absolute left-0 right-0 top-[-30px] h-[260px] flex items-center justify-center"
+                    style={
+                      w.image
+                        ? {
+                            backgroundImage: `url(${w.image})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                          }
+                        : {
+                            background:
+                              "repeating-linear-gradient(135deg,#e9ebee 0 8px,#e2e5e7 8px 16px)",
+                          }
+                    }
+                  >
+                    {!w.image && (
+                      <span className="font-mono text-[11px] text-text-muted">
+                        [ {w.shot} ]
+                      </span>
+                    )}
+                  </div>
+                </a>
+                <div className="flex flex-col gap-3">
+                  <div className="flex justify-between font-mono text-xs text-text-sub">
+                    <span>{w.no}</span>
+                    <span>{w.year}</span>
+                  </div>
+                  <h3 className="m-0 font-medium text-[21px]">{w.title}</h3>
+                  <p className="m-0 text-sm leading-[1.85] text-text-body">
+                    {w.summary}
+                  </p>
+                  <div className="grid grid-cols-[72px_minmax(0,1fr)] gap-y-1.5 text-[13px]">
+                    <span className="font-mono text-xs text-text-label">
+                      Role
+                    </span>
+                    <span>{w.role}</span>
+                    <span className="font-mono text-xs text-text-label">
+                      Stack
+                    </span>
+                    <div className="flex gap-1.5 flex-wrap">
+                      {w.tags.map((t) => (
+                        <code
+                          key={t}
+                          className="font-mono text-xs px-1.5 py-0.5 bg-chip rounded-[3px]"
+                        >
+                          {t}
+                        </code>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex gap-5 text-sm font-medium text-link">
+                    <a
+                      href={w.url}
+                      target={w.url.startsWith("http") ? "_blank" : undefined}
+                      rel={w.url.startsWith("http") ? "noopener" : undefined}
+                    >
+                      Live site ↗
+                    </a>
+                    <a
+                      href={w.lp}
+                      target={w.lp.startsWith("http") ? "_blank" : undefined}
+                      rel={w.lp.startsWith("http") ? "noopener" : undefined}
+                    >
+                      Details ↗
+                    </a>
+                  </div>
                 </div>
-                <span className="text-white text-xl font-semibold">Beezynx</span>
-              </div>
-              <p className="text-white/60">Building the future with intelligent software solutions.</p>
+              </article>
+            ))}
+          </section>
+
+          {/* 04 Partners */}
+          <section id="partners" className="scroll-mt-[60px] py-12">
+            <h2 className="m-0 mb-2 font-medium text-2xl">04 Partners</h2>
+            <p className="m-0 mb-6 text-[15px] text-text-muted">
+              Trusted by industry leaders.
+            </p>
+            <div className="flex justify-start">
+              <TopTalBadge />
             </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Services</h4>
-              <ul className="space-y-2 text-white/60">
-                <li>Software Development</li>
-                <li>AI & Automation</li>
-                <li>Consulting</li>
-                <li>Support</li>
-              </ul>
+          </section>
+
+          {/* 04 Contact */}
+          <section
+            id="contact"
+            className="scroll-mt-[60px] py-12 flex flex-col gap-4 border-t border-line"
+          >
+            <h2 className="m-0 font-medium text-2xl">05 Contact</h2>
+            <p className="m-0 text-[15px] text-text-muted">
+              Ready to get started? Let's discuss your project and see how we
+              can help transform your business.
+            </p>
+            <div className="flex gap-3 flex-wrap">
+              <a
+                href="#contact"
+                className="px-[18px] py-3 bg-ink text-white rounded-md text-sm"
+              >
+                Schedule a Consultation ↗
+              </a>
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener"
+                className="px-[18px] py-3 border border-border-btn rounded-md text-sm"
+              >
+                GitHub ↗
+              </a>
             </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-white/60">
-                <li>About Us</li>
-                <li>Careers</li>
-                <li>Blog</li>
-                <li>Contact</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-white/60">
-                <li>LinkedIn</li>
-                <li>Twitter</li>
-                <li>GitHub</li>
-                <li>Email</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-white/10 mt-8 pt-8 text-center text-white/60">
-            <p>&copy; 2024 Beezynx. All rights reserved.</p>
-          </div>
+            <span className="mt-10 font-mono text-xs text-text-sub">
+              © 2026 {brand} — {domain}
+            </span>
+          </section>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+function DataTable({ rows }: { rows: { label: string; value: string }[] }) {
+  return (
+    <div className="border border-line rounded-lg overflow-hidden text-sm">
+      {rows.map((row, i) => (
+        <div
+          key={row.label}
+          className={`grid grid-cols-1 sm:grid-cols-[200px_minmax(0,1fr)] gap-y-1 px-[18px] py-3.5 ${
+            i < rows.length - 1 ? "border-b border-line-soft" : ""
+          }`}
+        >
+          <span className="text-text-sub">{row.label}</span>
+          <span>{row.value}</span>
         </div>
-      </footer>
+      ))}
     </div>
   );
 }

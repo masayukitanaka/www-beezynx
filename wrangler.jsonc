@@ -8,7 +8,9 @@
 	"compatibility_date": "2025-04-04",
 	"main": "./workers/app.ts",
 	"vars": {
-		"VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare"
+		"VALUE_FROM_CLOUDFLARE": "Hello from Cloudflare",
+		// Which site to build: "freelance" (Beezynx) or "personal" (Masayuki Tanaka)
+		"PUBLIC_SITE": "freelance"
 	},
 	"observability": {
 		"enabled": true
