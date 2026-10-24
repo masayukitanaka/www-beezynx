@@ -1,15 +1,9 @@
 import type { Route } from "./+types/home";
 import { resolveSite } from "../data/site";
-import {
-  coast,
-  services,
-  whyChoose,
-  works,
-  specs,
-  ASCII_COLORS,
-} from "../data/portfolio";
+import { services, whyChoose, works, specs } from "../data/portfolio";
 import { useScrollEffects, useActiveSection } from "../hooks/useScrollEffects";
 import TopTalBadge from "../components/TopTalBadge";
+import FloatingFortress from "../components/FloatingFortress";
 
 const GITHUB_URL = "https://github.com/masayukitanaka";
 
@@ -120,7 +114,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             data-speed="0.12"
             className="scroll-mt-[60px] pt-[72px] pb-16 flex flex-col gap-[22px] border-b border-line"
           >
-            <div className="relative lg:min-h-[400px] flex flex-col-reverse lg:block gap-10">
+            <div className="relative lg:min-h-[420px] flex flex-col-reverse lg:block gap-10">
               <div className="relative z-10 flex flex-col gap-[22px] max-w-[360px]">
                 <span className="font-mono text-[13px] text-accent">
                   Software Development & AI
@@ -135,26 +129,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                 </p>
               </div>
 
-              {/* ASCII coastline art */}
-              <figure
-                aria-label="ASCII art of a coastline"
-                className="static lg:absolute lg:right-[-24px] lg:top-[-24px] z-0 m-0 flex flex-col gap-2 overflow-x-auto"
-              >
-                <div className="font-mono font-normal leading-[1.15] text-[clamp(9px,2.6vw,14px)] md:text-base lg:text-[23px]">
-                  {coast.map((line, i) => (
-                    <div
-                      key={i}
-                      className="whitespace-pre"
-                      style={{ color: ASCII_COLORS[line.c] }}
-                    >
-                      {line.t}
-                    </div>
-                  ))}
-                </div>
-                <figcaption className="font-mono text-[10px] text-text-label text-right">
-                  ~/coast.txt
-                </figcaption>
-              </figure>
+              {/* Floating ASCII sky-fortress key visual */}
+              <FloatingFortress />
             </div>
 
             {/* Spec strip */}
