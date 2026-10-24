@@ -6,6 +6,7 @@
 - リスト項目（Works や Services の各エントリ）は、追加・削除・並べ替えが可能です。追加した場合は番号（No）も振り直してください。
 - URL が `#` のものは未設定（リンク無効）を意味します。
 - 反映先: `app/data/portfolio.ts`（Spec/Services/Why/Works）、`app/routes/home.tsx`（Hero/各セクション見出し文/Contact）、`app/data/site.ts`（ブランド名・ドメイン）。
+- Works の画像: 原本は `docs/assets/work-*.webp`。配信用に同じファイルを `public/works/` にコピーし、`portfolio.ts` の `image` には `/works/work-*.webp`（ルート相対）を指定する（`docs/` はビルドで配信されないため）。
 
 ---
 
@@ -102,51 +103,133 @@
 
 ### Work 01
 - **No:** 01
-- **Year:** 2022–2023
-- **Title:** UGC Asynchronous Processing Platform
-- **Role:** Full Stack (Backend focus)
-- **Summary:** Modernized a 2000s-era legacy system with Go microservices and AWS Step Functions. Cut media processing time by 70% and built for 20× peak traffic.
-- **Tags:** Go, PHP, AWS Step Functions
-- **Shot（プレースホルダー文）:** screenshot — processing dashboard
-- **URL（Live site）:** #
+- **Year:** 2026
+- **Title:** MangaDSL — Manga Layout Creator
+- **Type:** OpenSource
+- **Role:** Language Design & Development
+- **Summary:** A domain-specific language that declares manga panel layouts with four elements: page, row, col and panel. Write a definition to generate a downloadable layout image; the open-source parser and renderer install via pip.
+- **Tags:** Manga, DSL, Python, React, Cloudflare Workers
+- **Shot（プレースホルダー文）:** screenshot — DSL and generated layout
+- **URL（Live site）:** https://manga.beezynx.dev/en/
 - **LP（Details）:** #
-- **Image:** （未設定）
+- **Image:** docs/assets/work-manga-dsl.webp
 
 ### Work 02
 - **No:** 02
-- **Year:** 2016–2022
-- **Title:** Fighting Game Backend Platform
-- **Role:** Backend / API Design
-- **Summary:** API backend for a fighting game played by millions. Averaged 30ms responses and reduced matchmaking wait times by 40%.
-- **Tags:** PHP Symfony, AWS, REST API
-- **Shot（プレースホルダー文）:** screenshot — game / matchmaking
-- **URL（Live site）:** #
+- **Year:** 2026
+- **Title:** Manga Editor
+- **Type:** Tool
+- **Role:** Design & Development
+- **Summary:** A visual panel-layout editor for comic pages. Split, drag and resize panels on a live canvas, add speech balloons and image layers, and keep every edit in two-way sync with a readable .manga source file.
+- **Tags:** Manga, Visual Editor, MangaDSL, React, Hono, D1, Cloudflare Workers
+- **Shot（プレースホルダー文）:** screenshot — panel editor
+- **URL（Live site）:** https://manga-editor.ursytsr.workers.dev/
 - **LP（Details）:** #
-- **Image:** （未設定）
+- **Image:** docs/assets/work-manga-editor.webp
 
 ### Work 03
 - **No:** 03
-- **Year:** 2024–
-- **Title:** AI Workflow Automation
-- **Role:** Full Stack
-- **Summary:** (Sample) Business automation tooling with an embedded LLM. Add a 2–3 line project overview here.
-- **Tags:** Python, LLM, GCP
-- **Shot（プレースホルダー文）:** screenshot — AI tool UI
-- **URL（Live site）:** #
+- **Year:** 2026
+- **Title:** Character Palette
+- **Type:** Tool
+- **Role:** Design & Development
+- **Summary:** Keeps a character's look consistent across every panel when making manga art with generative AI. Build a character lineup and turnaround sheets as references, then generate panel illustrations from them.
+- **Tags:** Manga, Generative AI, Gemini API, React, R2, Cloudflare Workers
+- **Shot（プレースホルダー文）:** screenshot — character palette
+- **URL（Live site）:** https://image-creator.ursytsr.workers.dev/
 - **LP（Details）:** #
-- **Image:** （未設定）
+- **Image:** docs/assets/work-character-palette.webp
 
 ### Work 04
 - **No:** 04
-- **Year:** 2025
-- **Title:** Product Landing Page
-- **Role:** Full Stack
-- **Summary:** (Sample) A landing page / service site built end to end, from frontend to backend. Add an overview here.
-- **Tags:** TypeScript, Hono, Vercel
+- **Year:** 2026
+- **Title:** Life As Comic
+- **Type:** Service
+- **Role:** Design & Development
+- **Summary:** A service that turns your life story into an original comic book. Interview sessions become a script and finished art, delivered as a printed hardcover and a digital edition.
+- **Tags:** Manga, Service, Web, React, Cloudflare Workers
 - **Shot（プレースホルダー文）:** screenshot — landing page
-- **URL（Live site）:** #
+- **URL（Live site）:** https://lifeascomic.mangacomic.org/
 - **LP（Details）:** #
-- **Image:** （未設定）
+- **Image:** docs/assets/work-life-as-comic.webp
+
+### Work 05
+- **No:** 05
+- **Year:** 2026
+- **Title:** Storyboard Planner
+- **Type:** Tool
+- **Role:** Design & Development
+- **Summary:** A tool for planning a manga's page breakdown — mapping the story onto pages and panels before drawing begins.
+- **Tags:** Manga, Storyboard, Planning, React, Cloudflare Workers
+- **Shot（プレースホルダー文）:** screenshot — storyboard tool
+- **URL（Live site）:** https://storyboard.ursytsr.workers.dev/login
+- **LP（Details）:** #
+- **Image:** docs/assets/work-storyboard.webp
+
+### Work 06
+- **No:** 06
+- **Year:** 2026
+- **Title:** Small Talk Topic Cards
+- **Type:** Tool
+- **Role:** Design & Development
+- **Summary:** Conversation-starter cards for Japanese learners. Choose categories from food and travel to ethics and politics, then tap a card to reveal a question to talk about.
+- **Tags:** Language Learning, Conversation, React, Cloudflare Workers
+- **Shot（プレースホルダー文）:** screenshot — topic cards
+- **URL（Live site）:** https://smalltalk.ursytsr.workers.dev/
+- **LP（Details）:** #
+- **Image:** docs/assets/work-smalltalk.webp
+
+### Work 07
+- **No:** 07
+- **Year:** 2026
+- **Title:** Memory Game (Multiplayer)
+- **Type:** Tool
+- **Role:** Design & Development
+- **Summary:** A multiplayer memory card game for putting what you've learned to the test. Match English phrases with their Japanese translations, or hiragana with katakana, and play against others.
+- **Tags:** Language Learning, Multiplayer, React, Cloudflare Workers
+- **Shot（プレースホルダー文）:** screenshot — game list
+- **URL（Live site）:** https://memory-game2.ursytsr.workers.dev/
+- **LP（Details）:** #
+- **Image:** docs/assets/work-memory-game.webp
+
+### Work 08
+- **No:** 08
+- **Year:** 2026
+- **Title:** Hiragana & Katakana Memory Hint
+- **Type:** Tool
+- **Role:** Design & Development
+- **Summary:** Learn hiragana and katakana through illustrated memory aids. Study the characters in order, practice at random, or drill a custom set.
+- **Tags:** Language Learning, Kana, React, Cloudflare Workers
+- **Shot（プレースホルダー文）:** screenshot — learning modes
+- **URL（Live site）:** https://hiragana-memory-hint.ursytsr.workers.dev/
+- **LP（Details）:** #
+- **Image:** docs/assets/work-hiragana-hint.webp
+
+### Work 09
+- **No:** 09
+- **Year:** 2026
+- **Title:** Japanese Practice — Kana Puzzle & Flashcards
+- **Type:** Tool
+- **Role:** Design & Development
+- **Summary:** A game where you place each hiragana and katakana in its correct spot on the chart, plus flashcards for JLPT N5 vocabulary and custom CSV-based decks.
+- **Tags:** Language Learning, Game, Flashcards, React, Cloudflare Workers
+- **Shot（プレースホルダー文）:** screenshot — practice menu
+- **URL（Live site）:** https://nihongo-learn.ursytsr.workers.dev/
+- **LP（Details）:** #
+- **Image:** docs/assets/work-nihongo-learn.webp
+
+### Work 10
+- **No:** 10
+- **Year:** 2026
+- **Title:** YouTube Playlist Editor
+- **Type:** Tool
+- **Role:** Design & Development
+- **Summary:** A simple tool for managing your YouTube playlists. Sign in with Google to reorder videos by drag and drop, copy videos between playlists, remove unwanted items and preview videos before making changes. Available in five languages.
+- **Tags:** YouTube Data API, Google OAuth, Productivity
+- **Shot（プレースホルダー文）:** screenshot — playlist editor
+- **URL（Live site）:** https://youtube-playlist.site/
+- **LP（Details）:** #
+- **Image:** docs/assets/work-youtube-playlist.webp
 
 ---
 
@@ -164,7 +247,7 @@
 反映先: `app/routes/home.tsx`（section#contact）
 - **Body:** Ready to get started? Let's discuss your project and see how we can help transform your business.
 - **Button 1（label）:** Schedule a Consultation ↗
-- **Button 1（link）:** #  ← 要設定（メール or 予約URL）
+- **Button 1（link）:** mailto:admin@beezynx.dev
 - **Button 2（label）:** GitHub ↗
 - **Button 2（link）:** https://github.com/masayukitanaka
 - **Copyright:** © 2026 {Brand} — {Domain}

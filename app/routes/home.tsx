@@ -244,6 +244,10 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   </p>
                   <div className="grid grid-cols-[72px_minmax(0,1fr)] gap-y-1.5 text-[13px]">
                     <span className="font-mono text-xs text-text-label">
+                      Type
+                    </span>
+                    <span>{w.type}</span>
+                    <span className="font-mono text-xs text-text-label">
                       Role
                     </span>
                     <span>{w.role}</span>
@@ -269,13 +273,15 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                     >
                       Live site ↗
                     </a>
-                    <a
-                      href={w.lp}
-                      target={w.lp.startsWith("http") ? "_blank" : undefined}
-                      rel={w.lp.startsWith("http") ? "noopener" : undefined}
-                    >
-                      Details ↗
-                    </a>
+                    {w.lp && w.lp !== "#" && (
+                      <a
+                        href={w.lp}
+                        target={w.lp.startsWith("http") ? "_blank" : undefined}
+                        rel={w.lp.startsWith("http") ? "noopener" : undefined}
+                      >
+                        Details ↗
+                      </a>
+                    )}
                   </div>
                 </div>
               </article>
@@ -305,7 +311,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             </p>
             <div className="flex gap-3 flex-wrap">
               <a
-                href="#contact"
+                href="mailto:admin@beezynx.dev"
                 className="px-[18px] py-3 bg-ink text-white rounded-md text-sm"
               >
                 Schedule a Consultation ↗
