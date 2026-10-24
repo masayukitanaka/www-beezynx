@@ -19,6 +19,13 @@
   --color-chip: #e9ebee;
   --color-accent: #32669a;
   --color-link: #23588a;
+  /* Work "Type" badge colors */
+  --color-type-opensource-bg: #dbeafe;
+  --color-type-opensource-fg: #1e40af;
+  --color-type-tool-bg: #fee2e2;
+  --color-type-tool-fg: #b91c1c;
+  --color-type-service-bg: #dcfce7;
+  --color-type-service-fg: #15803d;
   --color-ascii-sun: #ba7331;
   --color-ascii-sky: #82878c;
   --color-ascii-sea: #32669a;

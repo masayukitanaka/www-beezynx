@@ -226,32 +226,6 @@ export const works: Work[] = [
   },
 ];
 
-export interface StackRow {
-  label: string;
-  value: string;
-}
-
-// "Why Choose Beezynx?" highlights, shown in the 2a document-style table.
-export const whyChoose: StackRow[] = [
-  {
-    label: "Experience",
-    value: "10+ years of industry experience across software and AI.",
-  },
-  {
-    label: "Track Record",
-    value: "100+ successful projects delivered for businesses of every size.",
-  },
-  {
-    label: "Support",
-    value: "24/7 support and maintenance to keep your systems running.",
-  },
-  {
-    label: "Approach",
-    value:
-      "We combine technical expertise with business acumen to deliver solutions that drive real results.",
-  },
-];
-
 export interface SpecCell {
   dt: string;
   dd: string;

@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
 import { resolveSite } from "../data/site";
-import { services, whyChoose, works, specs } from "../data/portfolio";
+import { services, works, specs } from "../data/portfolio";
 import { useScrollEffects, useActiveSection } from "../hooks/useScrollEffects";
 import TopTalBadge from "../components/TopTalBadge";
 import FloatingFortress from "../components/FloatingFortress";
@@ -35,13 +35,37 @@ export function loader({ context }: Route.LoaderArgs) {
 const TOC = [
   { id: "overview", label: "— Overview" },
   { id: "services", label: "01 Services" },
-  { id: "why", label: "02 Why Beezynx" },
-  { id: "works", label: "03 Works" },
-  { id: "partners", label: "04 Partners" },
-  { id: "contact", label: "05 Contact" },
+  { id: "works", label: "02 Works" },
+  { id: "partners", label: "03 Partners" },
+  { id: "contact", label: "04 Contact" },
 ];
 
 const TOC_IDS = TOC.map((t) => t.id);
+
+// Work "Type" badge colors, keyed by lowercased type. Falls back to chip gray.
+const TYPE_STYLES: Record<string, { bg: string; fg: string }> = {
+  opensource: {
+    bg: "var(--color-type-opensource-bg)",
+    fg: "var(--color-type-opensource-fg)",
+  },
+  tool: {
+    bg: "var(--color-type-tool-bg)",
+    fg: "var(--color-type-tool-fg)",
+  },
+  service: {
+    bg: "var(--color-type-service-bg)",
+    fg: "var(--color-type-service-fg)",
+  },
+};
+
+function typeStyle(type: string) {
+  return (
+    TYPE_STYLES[type.toLowerCase()] ?? {
+      bg: "var(--color-chip)",
+      fg: "var(--color-ink)",
+    }
+  );
+}
 
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { brand, mark, domain } = loaderData;
@@ -63,8 +87,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <a href="#services" className="hidden sm:inline">
             Services
           </a>
-          <a href="#why" className="hidden sm:inline">
-            About
+          <a href="#works" className="hidden sm:inline">
+            Works
           </a>
           <a href="#partners" className="hidden md:inline">
             Partners
@@ -147,26 +171,26 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </header>
 
           {/* 01 Services */}
-          <section id="services" className="scroll-mt-[60px] pt-14 pb-6">
+          <section id="services" className="scroll-mt-[60px] pt-12 pb-10">
             <h2 className="m-0 mb-2 font-medium text-2xl">01 Services</h2>
-            <p className="m-0 mb-4 text-[15px] text-text-muted">
+            <p className="m-0 mb-6 text-[15px] text-text-muted">
               Comprehensive solutions for modern businesses.
             </p>
-            {services.map((s) => (
-              <article
-                key={s.no}
-                data-reveal="1"
-                className="grid grid-cols-1 md:grid-cols-[72px_minmax(0,1fr)] gap-x-8 gap-y-2 py-8 border-b border-line-soft"
-              >
-                <span className="font-mono text-xs text-text-sub pt-1">
-                  {s.no}
-                </span>
-                <div className="flex flex-col gap-3">
-                  <h3 className="m-0 font-medium text-[21px]">{s.title}</h3>
-                  <p className="m-0 text-sm leading-[1.85] text-text-body max-w-[560px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {services.map((s) => (
+                <article
+                  key={s.no}
+                  data-reveal="1"
+                  className="flex flex-col gap-3 p-5 border border-line-soft rounded-lg"
+                >
+                  <span className="font-mono text-xs text-text-sub">
+                    {s.no}
+                  </span>
+                  <h3 className="m-0 font-medium text-[19px]">{s.title}</h3>
+                  <p className="m-0 text-sm leading-[1.7] text-text-body">
                     {s.summary}
                   </p>
-                  <div className="flex gap-1.5 flex-wrap">
+                  <div className="mt-auto flex gap-1.5 flex-wrap pt-1">
                     {s.tags.map((t) => (
                       <code
                         key={t}
@@ -176,25 +200,14 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                       </code>
                     ))}
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </section>
 
-          {/* 02 Why Beezynx */}
-          <section id="why" className="scroll-mt-[60px] py-12">
-            <h2 className="m-0 mb-2 font-medium text-2xl">
-              02 Why {brand}?
-            </h2>
-            <p className="m-0 mb-5 text-[15px] text-text-muted">
-              Solutions that not only work, but drive real results.
-            </p>
-            <DataTable rows={whyChoose} />
-          </section>
-
-          {/* 03 Works */}
+          {/* 02 Works */}
           <section id="works" className="scroll-mt-[60px] pt-14 pb-6">
-            <h2 className="m-0 mb-2 font-medium text-2xl">03 Works</h2>
+            <h2 className="m-0 mb-2 font-medium text-2xl">02 Works</h2>
             <p className="m-0 mb-4 text-[15px] text-text-muted">
               Selected projects and platforms we've delivered.
             </p>
@@ -246,7 +259,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                     <span className="font-mono text-xs text-text-label">
                       Type
                     </span>
-                    <span>{w.type}</span>
+                    <span>
+                      <span
+                        className="inline-block font-mono text-xs font-medium px-2 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: typeStyle(w.type).bg,
+                          color: typeStyle(w.type).fg,
+                        }}
+                      >
+                        {w.type}
+                      </span>
+                    </span>
                     <span className="font-mono text-xs text-text-label">
                       Role
                     </span>
@@ -288,9 +311,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             ))}
           </section>
 
-          {/* 04 Partners */}
+          {/* 03 Partners */}
           <section id="partners" className="scroll-mt-[60px] py-12">
-            <h2 className="m-0 mb-2 font-medium text-2xl">04 Partners</h2>
+            <h2 className="m-0 mb-2 font-medium text-2xl">03 Partners</h2>
             <p className="m-0 mb-6 text-[15px] text-text-muted">
               Trusted by industry leaders.
             </p>
@@ -304,7 +327,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             id="contact"
             className="scroll-mt-[60px] py-12 flex flex-col gap-4 border-t border-line"
           >
-            <h2 className="m-0 font-medium text-2xl">05 Contact</h2>
+            <h2 className="m-0 font-medium text-2xl">04 Contact</h2>
             <p className="m-0 text-[15px] text-text-muted">
               Ready to get started? Let's discuss your project and see how we
               can help transform your business.
@@ -331,24 +354,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </section>
         </main>
       </div>
-    </div>
-  );
-}
-
-function DataTable({ rows }: { rows: { label: string; value: string }[] }) {
-  return (
-    <div className="border border-line rounded-lg overflow-hidden text-sm">
-      {rows.map((row, i) => (
-        <div
-          key={row.label}
-          className={`grid grid-cols-1 sm:grid-cols-[200px_minmax(0,1fr)] gap-y-1 px-[18px] py-3.5 ${
-            i < rows.length - 1 ? "border-b border-line-soft" : ""
-          }`}
-        >
-          <span className="text-text-sub">{row.label}</span>
-          <span>{row.value}</span>
-        </div>
-      ))}
     </div>
   );
 }

@@ -5,7 +5,7 @@
 - 見出し番号（01, 02…）やフィールド名（**Title:** など）の構造は**変えないでください**。値（コロンの右側、本文）だけ編集してください。
 - リスト項目（Works や Services の各エントリ）は、追加・削除・並べ替えが可能です。追加した場合は番号（No）も振り直してください。
 - URL が `#` のものは未設定（リンク無効）を意味します。
-- 反映先: `app/data/portfolio.ts`（Spec/Services/Why/Works）、`app/routes/home.tsx`（Hero/各セクション見出し文/Contact）、`app/data/site.ts`（ブランド名・ドメイン）。
+- 反映先: `app/data/portfolio.ts`（Spec/Services/Works）、`app/routes/home.tsx`（Hero/各セクション見出し文/Contact）、`app/data/site.ts`（ブランド名・ドメイン）。
 - Works の画像: 原本は `docs/assets/work-*.webp`。配信用に同じファイルを `public/works/` にコピーし、`portfolio.ts` の `image` には `/works/work-*.webp`（ルート相対）を指定する（`docs/` はビルドで配信されないため）。
 
 ---
@@ -36,7 +36,7 @@
 
 反映先: `app/routes/home.tsx`（nav）
 - **GitHub URL:** https://github.com/masayukitanaka
-- リンクラベル: Services / About / Partners / GitHub ↗ / Contact
+- リンクラベル: Services / Works / Partners / GitHub ↗ / Contact
 
 ---
 
@@ -81,22 +81,7 @@
 
 ---
 
-## 02 Why Beezynx
-
-反映先: `app/data/portfolio.ts` の `whyChoose`
-- **Section heading:** 02 Why {Brand}?
-- **Section intro:** Solutions that not only work, but drive real results.
-
-| Label | Value |
-|---|---|
-| Experience | 10+ years of industry experience across software and AI. |
-| Track Record | 100+ successful projects delivered for businesses of every size. |
-| Support | 24/7 support and maintenance to keep your systems running. |
-| Approach | We combine technical expertise with business acumen to deliver solutions that drive real results. |
-
----
-
-## 03 Works
+## 02 Works
 
 反映先: `app/data/portfolio.ts` の `works`
 - **Section intro:** Selected projects and platforms we've delivered.
@@ -233,7 +218,7 @@
 
 ---
 
-## 04 Partners
+## 03 Partners
 
 反映先: `app/routes/home.tsx`（section#partners）＋ `app/components/TopTalBadge.tsx`
 - **Section intro:** Trusted by industry leaders.
@@ -242,7 +227,7 @@
 
 ---
 
-## 05 Contact
+## 04 Contact
 
 反映先: `app/routes/home.tsx`（section#contact）
 - **Body:** Ready to get started? Let's discuss your project and see how we can help transform your business.
