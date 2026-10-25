@@ -56,6 +56,10 @@ const TYPE_STYLES: Record<string, { bg: string; fg: string }> = {
     bg: "var(--color-type-service-bg)",
     fg: "var(--color-type-service-fg)",
   },
+  app: {
+    bg: "var(--color-type-app-bg)",
+    fg: "var(--color-type-app-fg)",
+  },
 };
 
 function typeStyle(type: string) {

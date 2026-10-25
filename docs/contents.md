@@ -88,6 +88,19 @@
 
 ### Work 01
 - **No:** 01
+- **Year:** （未設定）
+- **Title:** LazyVlog
+- **Type:** App
+- **Role:** Design & Development
+- **Summary:** A mobile app that turns everyday photos into short AI-made video diaries. Choose up to three photos and one of ten moods, and the AI builds a cinematic clip ready to share on YouTube, TikTok or Instagram. Available in nine languages on iOS and Android.
+- **Tags:** React Native, Python + Flask, Supabase, Google Cloud
+- **Shot（プレースホルダー文）:** screenshot — app landing page
+- **URL（Live site）:** https://lazyvlog.beezynx.dev/
+- **LP（Details）:** #
+- **Image:** docs/assets/work-lazyvlog.webp
+
+### Work 02
+- **No:** 02
 - **Year:** 2026
 - **Title:** MangaDSL — Manga Layout Creator
 - **Type:** OpenSource
@@ -99,21 +112,21 @@
 - **LP（Details）:** #
 - **Image:** docs/assets/work-manga-dsl.webp
 
-### Work 02
-- **No:** 02
+### Work 03
+- **No:** 03
 - **Year:** 2026
 - **Title:** Manga Editor
 - **Type:** Tool
 - **Role:** Design & Development
 - **Summary:** A visual panel-layout editor for comic pages. Split, drag and resize panels on a live canvas, add speech balloons and image layers, and keep every edit in two-way sync with a readable .manga source file.
-- **Tags:** Manga, Visual Editor, MangaDSL, React, Hono, D1, Cloudflare Workers
+- **Tags:** Manga, Visual Editor, MangaDSL, React, Hono, D1, Supabase, Cloudflare Workers
 - **Shot（プレースホルダー文）:** screenshot — panel editor
 - **URL（Live site）:** https://manga-editor.ursytsr.workers.dev/
 - **LP（Details）:** #
 - **Image:** docs/assets/work-manga-editor.webp
 
-### Work 03
-- **No:** 03
+### Work 04
+- **No:** 04
 - **Year:** 2026
 - **Title:** Character Palette
 - **Type:** Tool
@@ -125,8 +138,8 @@
 - **LP（Details）:** #
 - **Image:** docs/assets/work-character-palette.webp
 
-### Work 04
-- **No:** 04
+### Work 05
+- **No:** 05
 - **Year:** 2026
 - **Title:** Life As Comic
 - **Type:** Service
@@ -138,8 +151,8 @@
 - **LP（Details）:** #
 - **Image:** docs/assets/work-life-as-comic.webp
 
-### Work 05
-- **No:** 05
+### Work 06
+- **No:** 06
 - **Year:** 2026
 - **Title:** Storyboard Planner
 - **Type:** Tool
@@ -151,8 +164,8 @@
 - **LP（Details）:** #
 - **Image:** docs/assets/work-storyboard.webp
 
-### Work 06
-- **No:** 06
+### Work 07
+- **No:** 07
 - **Year:** 2026
 - **Title:** Small Talk Topic Cards
 - **Type:** Tool
@@ -164,8 +177,8 @@
 - **LP（Details）:** #
 - **Image:** docs/assets/work-smalltalk.webp
 
-### Work 07
-- **No:** 07
+### Work 08
+- **No:** 08
 - **Year:** 2026
 - **Title:** Memory Game (Multiplayer)
 - **Type:** Tool
@@ -177,8 +190,8 @@
 - **LP（Details）:** #
 - **Image:** docs/assets/work-memory-game.webp
 
-### Work 08
-- **No:** 08
+### Work 09
+- **No:** 09
 - **Year:** 2026
 - **Title:** Hiragana & Katakana Memory Hint
 - **Type:** Tool
@@ -190,8 +203,8 @@
 - **LP（Details）:** #
 - **Image:** docs/assets/work-hiragana-hint.webp
 
-### Work 09
-- **No:** 09
+### Work 10
+- **No:** 10
 - **Year:** 2026
 - **Title:** Japanese Practice — Kana Puzzle & Flashcards
 - **Type:** Tool
@@ -203,8 +216,8 @@
 - **LP（Details）:** #
 - **Image:** docs/assets/work-nihongo-learn.webp
 
-### Work 10
-- **No:** 10
+### Work 11
+- **No:** 11
 - **Year:** 2026
 - **Title:** YouTube Playlist Editor
 - **Type:** Tool
